@@ -22,11 +22,11 @@ import serial
 
 # The ThingSpeak Channel ID
 # Replace this with your Channel ID
-channelID = "560057"
+channelID = "YOUR_CH_ID"
 
 # The Write API Key for the channel
 # Replace this with your Write API key
-apiKey = "YMBJKNG5ZQ3US7K3"
+apiKey = "YOUR_API_KEY"
 
 #  MQTT Connection Methods
 
@@ -94,14 +94,7 @@ def find_between_r( s, first, last ):
 #   20 seconds and published that to a ThingSpeak channel
 #   using MQTT.
 while(True):
-    
-    # get the system performance data
-    #cpuPercent = psutil.cpu_percent(interval=20)
-    #ramPercent = psutil.virtual_memory().percent
-    #temp = int(open('/sys/class/thermal/thermal_zone0/temp').read()) / 1e3 # Get Raspberry Pi CPU temp
-    #print (" CPU =",cpuPercent,"   TEMP =",temp)
-
-    # build the payload string
+    #Receive Data from Serial Port
     while(ser.in_waiting >0):
         line = ser.readline()
     if line:
@@ -113,6 +106,7 @@ while(True):
         print find_between( line, "PWR:", ",RD" )
         print find_between( line, "RD:", ",PIR" )
         print find_between( line, "PIR:", "\r\n" )
+    # build the payload string
     tPayload = "field1=" + str(Temp1) + "&field2=" + str(HUM)
 
     # attempt to publish this data to the topic 
